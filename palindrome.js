@@ -18,4 +18,3 @@ var isPalindrome = function (x) {
 
 console.log(isPalindrome(167849));
 console.log("hello world");
-
