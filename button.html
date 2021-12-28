@@ -1,0 +1,51 @@
+<!-- How would you fix this 
+<html>
+  <body>
+    <button>Click!</button>
+    <p></p>
+    <script>
+      let counter = {
+        cnt: 0,
+        inc: function() {
+          cnt++
+          console.log(cnt)
+        },
+      }
+      const count = document.getElementsByTagName('p')[0]
+      const button = document.getElementsByTagName('button')[0]
+      button.addEventListener('click', counter.inc(), false)
+    </script>
+  </body>
+</html -->
+<html>
+  <body>
+    <button>Click!</button>
+    <p></p>
+    <script>
+      let counter = {
+        cnt: 0,
+        inc: function() {
+          //Needs to add "this" keyword to refer to the local variable in object
+          this.cnt++
+          //Also needs "this" keyword to refer to local variable
+          console.log(this.cnt)
+          count.innerHTML=this.cnt
+        },
+      }
+      const count = document.getElementsByTagName('p')[0]
+      const button = document.getElementsByTagName('button')[0]
+      //Uses bind to create new function which will attach this and the instance of that object
+      button.addEventListener('click', counter.inc.bind(counter), false)
+      /*You can also use a arrow funtion which yields the instance of that function call
+      button.addEventListener('click', ()=>counter.inc(), false)*/
+
+    </script>
+  </body>
+</html>
+
+<!--
+  Errors:
+  1. First error is the object does not use this to refer to local variable "cnt"
+  2.a The event listener function being passed needs to be bound a specific object being passed -counter.inc.bind(counter) 
+  2.b An empty function can also be passed with an empty parameter which will attach that object to the instance of that callback function 
+-->
